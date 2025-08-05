@@ -1,0 +1,13 @@
+# The main pipeline for payer_dlt
+resources:
+  pipelines:
+    payer_dlt_pipeline:
+      name: payer_dlt_pipeline
+      catalog: quickstart_catalog_vkm_external
+      schema: payer_dlt_${bundle.target}
+      libraries:
+        - notebook:
+            path: ../src/dlt_pipeline.ipynb
+
+      configuration:
+        bundle.sourcePath: ${workspace.file_path}/src

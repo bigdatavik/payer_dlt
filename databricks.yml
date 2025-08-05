@@ -1,0 +1,29 @@
+# This is a Databricks asset bundle definition for payer_dlt.
+# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
+bundle:
+  name: payer_dlt
+  uuid: 54ff679c-ee63-4b4f-b616-9f5470f7ad1e
+
+include:
+  - resources/*.yml
+
+targets:
+  dev:
+    # The default target uses 'mode: development' to create a development copy.
+    # - Deployed resources get prefixed with '[dev my_user_name]'
+    # - Any job schedules and triggers are paused by default.
+    # See also https://docs.databricks.com/dev-tools/bundles/deployment-modes.html.
+    mode: development
+    default: true
+    workspace:
+      host: https://adb-984752964297111.11.azuredatabricks.net
+
+  prod:
+    mode: production
+    workspace:
+      host: https://adb-984752964297111.11.azuredatabricks.net
+      # We explicitly deploy to /Workspace/Users/vik.malhotra@databricks.com to make sure we only have a single copy.
+      root_path: /Workspace/Users/vik.malhotra@databricks.com/.bundle/${bundle.name}/${bundle.target}
+    permissions:
+      - user_name: vik.malhotra@databricks.com
+        level: CAN_MANAGE
