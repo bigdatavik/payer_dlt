@@ -1,0 +1,15 @@
+resources:
+  pipelines:
+    ingest_payer_silver_data_gold:
+      name: 'DLT Payer Demo: Ingest Gold data'
+      configuration:
+        "conf.catalog_name": ${var.catalog_name}
+        "conf.silver_schema_name": ${var.silver_schema_name}
+      libraries:
+        - notebook:
+            path: ../src/ingest_silver_data_gold.py
+      catalog: ${var.catalog_name}
+      schema: ${var.gold_schema_name}
+      channel: CURRENT
+      development: true
+      serverless: true

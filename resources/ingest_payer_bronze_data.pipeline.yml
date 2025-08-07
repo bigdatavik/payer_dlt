@@ -1,0 +1,15 @@
+resources:
+  pipelines:
+    ingest_payer_bronze_data:
+      name: 'DLT Payer Demo: Ingest Bronze data'
+      configuration:
+        "conf.catalog_name": ${var.catalog_name}
+        "conf.bronze_schema_name": ${var.bronze_schema_name}
+      libraries:
+        - notebook:
+            path: ../src/ingest_raw_data_bronze.py
+      catalog: ${var.catalog_name}
+      schema: ${var.bronze_schema_name}
+      channel: CURRENT
+      development: true
+      serverless: true

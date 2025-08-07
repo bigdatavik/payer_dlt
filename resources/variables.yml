@@ -1,0 +1,9 @@
+variables:
+  catalog_name:
+    description: The name of the default UC Catalog
+  bronze_schema_name:
+    description: The name of UC Schema to put processed data of individual log sources  
+  silver_schema_name:
+    description: The name of UC Schema to put processed data of individual log sources
+  gold_schema_name:
+    description: The name of UC Schema to put processed data of individual log sources

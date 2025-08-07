@@ -1,0 +1,14 @@
+resources:
+  jobs:
+    dlt_payer_demo_setup:
+      name: 'DLT Payer Demo: Setup'
+      tasks:
+        - task_key: setup
+          notebook_task:
+            base_parameters:
+              catalog: ${var.catalog_name}
+              bronze_db: ${var.bronze_schema_name}
+              silver_db: ${var.silver_schema_name}
+              gold_db: ${var.gold_schema_name}
+            notebook_path: ../src/setup.py
+      max_concurrent_runs: 1
