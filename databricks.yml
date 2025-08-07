@@ -8,7 +8,6 @@ include:
 
 sync:
   include:
-    - src/helpers.py
     - src/__init__.py
 
 targets:

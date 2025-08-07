@@ -97,9 +97,3 @@ def payor_silver_procedures():
             regexp_replace(col("amount"), "\\$", "").cast("DOUBLE").alias("amount")
         ).distinct()
     )
-
-# COMMAND ----------
-
-# MAGIC %md
-# MAGIC
-# MAGIC We're using streaming tables + append flows to make sure that we can add more (or remove not used) source locations for this data type.
