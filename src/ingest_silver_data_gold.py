@@ -29,19 +29,28 @@ SILVER_TABLES = {
 # -------------------
 
 @dlt.table(name="claims_enriched")
-def payor_gold_claims_enriched():
+def claims_enriched1():
     claims = dlt.read(SILVER_TABLES["claims"])
     members = dlt.read(SILVER_TABLES["members"])
     providers = dlt.read(SILVER_TABLES["providers"])
+    diagnoses = dlt.read(SILVER_TABLES["diagnoses"])
+    
+    # Change 'on' clause as needed depending on your data model. 
+    # Here assuming: one diagnosis per claim (if multiple, see note below).
+
     return (
-        claims.join(members, "member_id")
-              .join(providers, "provider_id")
-              .select(
-                  "claim_id", "claim_date", "total_charge", "claim_status",
-                  "member_id", "first_name", "last_name", "gender", "plan_id",
-                  "provider_id", "provider_name", "specialty", "city", "state"
-              )
+        claims
+        .join(members, "member_id", "left")
+        .join(providers, "provider_id", "left")
+        .join(diagnoses, "claim_id", "left")
+        .select(
+            "claim_id", "claim_date", "total_charge", "claim_status",
+            "member_id", "first_name", "last_name", "gender", "plan_id",
+            "provider_id", "provider_name", "specialty", "city", "state",
+            "diagnosis_code", "diagnosis_desc"  # Fields from diagnoses table
+        )
     )
+
 
 @dlt.table(name="member_claim_summary")
 def payor_gold_member_claim_summary():
