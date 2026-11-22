@@ -5,6 +5,7 @@ resources:
       name: payer_dlt_pipeline
       catalog: quickstart_catalog_vkm_external
       schema: payer_dlt_${bundle.target}
+      serverless: true
       libraries:
         - notebook:
             path: ../src/dlt_pipeline.ipynb
